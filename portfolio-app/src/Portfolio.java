@@ -15,9 +15,14 @@ public class Portfolio {
     }
 
     public BigDecimal getTotalValue(){
-        BigDecimal sum = BigDecimal.valueOf(0);
-        stocks.stream().forEach(stock ->{sum.add(stock.getPricePerShare().multiply(BigDecimal.valueOf(stock.getQuantity())));});
-        return sum;
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (Stock stock : stocks) {
+            BigDecimal value = stock.getPricePerShare().multiply(new BigDecimal(stock.getQuantity()));
+            total = total.add(value);
+        }
+
+        return total;
     }
 
     public void setStocks(List<Stock> stocks) {

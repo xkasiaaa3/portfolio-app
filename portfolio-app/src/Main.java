@@ -36,6 +36,7 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("4. Balance");
+                    System.out.println("Total value of your stocks: "+ portfolio.getTotalValue());
                     break;
                 case 5:
                     System.out.println("5. Exit");
