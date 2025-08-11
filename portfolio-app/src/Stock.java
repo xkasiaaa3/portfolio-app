@@ -3,10 +3,10 @@ import java.util.Objects;
 
 public class Stock {
 
-    int stockId;
-    String stockName;
-    int quantity;
-    BigDecimal pricePerShare;
+    private final int stockId;
+    private final String stockName;
+    private int quantity;
+    private BigDecimal pricePerShare;
 
     public Stock(int stockId, String stockName, int quantity, BigDecimal pricePerShare) {
         this.stockId = stockId;
