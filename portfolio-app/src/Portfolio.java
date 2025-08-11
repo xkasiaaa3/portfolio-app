@@ -41,7 +41,7 @@ public class Portfolio {
             System.out.println(stocks.add(stock));
         }
 
-        System.out.println("Portfolio update stocks, current stocks: \n" + stocks);
+        System.out.println("Portfolio stock updated, current values: \n" + stocks);
     }
 
     public void removeStock(Stock stock) {
