@@ -7,6 +7,13 @@ public class Stock {
     int quantity;
     BigDecimal pricePerShare;
 
+    public Stock(int stockId, String stockName, int quantity, BigDecimal pricePerShare) {
+        this.stockId = stockId;
+        this.stockName = stockName;
+        this.quantity = quantity;
+        this.pricePerShare = pricePerShare;
+    }
+
     public BigDecimal getPricePerShare() {
         return pricePerShare;
     }
