@@ -18,4 +18,8 @@ public class Portfolio {
         stocks.stream().forEach(stock ->{sum.add(stock.getPricePerShare().multiply(BigDecimal.valueOf(stock.getQuantity())));});
         return sum;
     }
+
+    public void setStocks(List<Stock> stocks) {
+        this.stocks = stocks;
+    }
 }
