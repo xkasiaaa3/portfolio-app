@@ -25,7 +25,11 @@ public class Main {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    System.out.println("1.Browse");
+                    if (portfolio.getStocks().isEmpty()) {
+                        System.out.println("Your Portfolio is currently empty.");
+                    } else {
+                        System.out.println(portfolio.getStocks());
+                    }
                     break;
                 case 2:
                     System.out.println("2. Add");
@@ -35,7 +39,7 @@ public class Main {
                     System.out.println("Add stock ID");
                     int stockId = scanner.nextInt();
                     System.out.println("Add stock name");
-                    String stockName = scanner.nextLine();
+                    String stockName = scanner.next();
                     System.out.println("Add quantity");
                     int quantity = scanner.nextInt();
                     System.out.println("Add price");
@@ -44,7 +48,18 @@ public class Main {
                     portfolio.addStock(stock);
                     break;
                 case 3:
-                    System.out.println("3. Remove");
+                    System.out.print("Input stock ID: ");
+                    int stockID = scanner.nextInt();
+                    System.out.print("Input stock name: ");
+                    String stockName = scanner.next();
+                    System.out.print("Input stock price: ");
+                    BigDecimal stockPrice = scanner.nextBigDecimal();
+                    System.out.println("Input purchase quantity: ");
+                    int stockQuantity = scanner.nextInt();
+
+                    Stock removeStock = new Stock(stockID,stockName,stockQuantity, stockPrice);
+                    System.out.println(removeStock.toString());
+//                    portfolio.addStock(removeStock);
                     break;
                 case 4:
                     System.out.println("4. Balance");
