@@ -1,80 +1,117 @@
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    static List<Stock> stocks = new ArrayList<>();
+    static Portfolio portfolio = new Portfolio(stocks);
+    static TerminalText text = new TerminalText();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void buyStock() {
+        System.out.print("Please input stock ID: ");
+        int stockId = scanner.nextInt();
+        System.out.print("Please input stock name: ");
+        String stockName = scanner.next();
+
+        Stock currentStock = new Stock(stockId, stockName, 0, new BigDecimal("100"));
+        boolean found = false;
+        for (Stock stock : stocks) {
+            if (stock.equals(currentStock)) {
+                found = true;
+                System.out.println("Your current holdings:\n" + stock);
+                break;
+            }
+        }
+        if (found) {
+            System.out.print("Update price: ");
+            BigDecimal pricePerShare = scanner.nextBigDecimal();
+            currentStock.updatePricePerShare(pricePerShare);
+            System.out.println("How many more shares would you like to buy?");
+        } else {
+            System.out.println("You do not own any shares of this stock.");
+            System.out.print("Set the current price: ");
+            BigDecimal pricePerShare = scanner.nextBigDecimal();
+            currentStock.updatePricePerShare(pricePerShare);
+            System.out.println("How many shares would you like to buy?");
+        }
+        System.out.print("Input: ");
+        int quantity = scanner.nextInt();
+        currentStock.buyStock(quantity);
+        portfolio.addStock(currentStock);
+    }
+
+    public static void sellStock() {
+        System.out.print("Please input stock ID: ");
+        int stockId = scanner.nextInt();
+        System.out.print("Please input stock name: ");
+        String stockName = scanner.next();
+
+        Stock currentStock = new Stock(stockId, stockName, 0, new BigDecimal("100"));
+        boolean found = false;
+        for (Stock stock : stocks) {
+            if (stock.equals(currentStock)) {
+                found = true;
+                System.out.println("Your current holdings:\n" + stock);
+                break;
+            }
+        }
+        if (found) {
+            System.out.print("Update price: ");
+            BigDecimal pricePerShare = scanner.nextBigDecimal();
+            currentStock.updatePricePerShare(pricePerShare);
+            System.out.println("How many shares would you like to sell?");
+            System.out.print("Input: ");
+            int quantity = scanner.nextInt();
+            currentStock.sellStock(quantity);
+            portfolio.removeStock(currentStock);
+        } else {
+            System.out.println("You do not own any shares of this stock.");
+        }
+    }
+
     public static void main(String[] args) {
 
-        int choice = 0;
-        List<Stock> stocks = new ArrayList<Stock>();
-        Portfolio portfolio = new Portfolio(stocks);
+        text.intro();
 
+        int choice;
         do {
-            if (choice >= 0 & choice <= 5) {
-            System.out.println("Hello, this is your portfolio.");
-            System.out.println("Choose your action:");
-            System.out.println("1.Browse");
-            System.out.println("2. Add");
-            System.out.println("3. Remove");
-            System.out.println("4. Balance");
-            System.out.println("5. Exit");
-            System.out.println("I choose: ");
-            Scanner scanner = new Scanner(System.in);
+            text.action();
             choice = scanner.nextInt();
+            if (choice < 0 || choice > 5) {
+                text.error();
+                break;
+            }
+
             switch (choice) {
-                case 1:
+                case 1:     // Browse portfolio
                     if (portfolio.getStocks().isEmpty()) {
                         System.out.println("Your Portfolio is currently empty.");
                     } else {
-                        System.out.println(portfolio.getStocks());
+                        System.out.println(portfolio.toString());
                     }
                     break;
-                case 2:
-                    System.out.println("2. Add");
-                    //dummy data
-//                    Stock stock = new Stock(1000,"Stock name",345, BigDecimal.TEN);
-                    System.out.println("2. Add");
-                    System.out.println("Add stock ID");
-                    int stockId = scanner.nextInt();
-                    System.out.println("Add stock name");
-                    String stockName = scanner.next();
-                    System.out.println("Add quantity");
-                    int quantity = scanner.nextInt();
-                    System.out.println("Add price");
-                    BigDecimal pricePerShare = scanner.nextBigDecimal();
-                    Stock stock = new Stock(stockId, stockName, quantity, pricePerShare);
-                    portfolio.addStock(stock);
+                case 2:     // Check balance
+                    System.out.println("Total value of your stocks: " + portfolio.getTotalValue());
                     break;
-                case 3:
-                    System.out.print("Input stock ID: ");
-                    int stockID = scanner.nextInt();
-                    System.out.print("Input stock name: ");
-                    String stockName = scanner.next();
-                    System.out.print("Input stock price: ");
-                    BigDecimal stockPrice = scanner.nextBigDecimal();
-                    System.out.println("Input purchase quantity: ");
-                    int stockQuantity = scanner.nextInt();
-
-                    Stock removeStock = new Stock(stockID,stockName,stockQuantity, stockPrice);
-                    System.out.println(removeStock.toString());
-//                    portfolio.addStock(removeStock);
+                case 3:     // Buy stock
+                    buyStock();
                     break;
-                case 4:
-                    System.out.println("4. Balance");
-                    System.out.println("Total value of your stocks: "+ portfolio.getTotalValue());
+                case 4:     // Sell stock
+                    sellStock();
                     break;
-                case 5:
-                    System.out.println("5. Exit");
+                case 5:     // Exit
                     break;
             }
-            }else{
-                System.out.println("Provide correct number one again");
-                Scanner scanner = new Scanner(System.in);
-                choice = scanner.nextInt();
-            }
-
+            int cont;
+            do {
+                System.out.print("Leave? (0: No, 1: Yes): ");
+                cont = scanner.nextInt();
+            } while (cont != 0 && cont != 1);
+            if (cont == 1) choice = 5;
         } while (choice != 5);
+        text.outro();
     }
 }

@@ -43,7 +43,7 @@ public class Stock {
 
     @Override
     public String toString() {
-        return "Stock ID: " + stockId + "\n" +
+        return "\nStock ID: " + stockId + "\n" +
                 "Stock Name: " + stockName + "\n" +
                 "Stock Price per share: " + pricePerShare + "\n" +
                 "Stock Quantity: " + quantity + "\n";

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Portfolio {
 
-    List<Stock> stocks = Collections.emptyList();
+    List<Stock> stocks;
 
     public Portfolio(List<Stock> stocks) {
         this.stocks = stocks;
@@ -29,18 +29,42 @@ public class Portfolio {
         this.stocks = stocks;
     }
 
-    public void addStock(Stock stock){
-        if (stocks.contains(stock)){
-            stocks.stream().forEach(s -> {
+    public void addStock(Stock stock) {
+        if (stocks.contains(stock)) {
+            stocks.forEach(s -> {
                 if (s.equals(stock)) {
                     s.updatePricePerShare(stock.getPricePerShare());
                     s.buyStock(stock.getQuantity());
-                }});
-        }
-        else{
+                }
+            });
+        } else {
             System.out.println(stocks.add(stock));
         }
 
         System.out.println("Portfolio update stocks, current stocks: \n" + stocks);
+    }
+
+    public void removeStock(Stock stock) {
+        if (stocks.contains(stock)) {
+            stocks.forEach(s -> {
+                if (s.equals(stock)) {
+                    s.updatePricePerShare(stock.getPricePerShare());
+                    if (s.getQuantity() < -stock.getQuantity()) {
+                        System.out.println("You do not own enough shares.");
+                    } else {
+                        s.sellStock(stock.getQuantity());
+                        System.out.println("Portfolio stock updated, current values: \n" + stocks);
+                    }
+                }
+            });
+        } else {
+            System.out.println(stocks.add(stock));
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "Portfolio:\n" + stocks;
     }
 }
