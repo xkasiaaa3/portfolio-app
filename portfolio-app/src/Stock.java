@@ -14,6 +14,12 @@ public class Stock {
         this.pricePerShare = pricePerShare;
     }
 
+    public int getStockId() {
+        return stockId;
+    }
+    public String getStockName() {
+        return stockName;
+    }
     public BigDecimal getPricePerShare() {
         return pricePerShare;
     }
