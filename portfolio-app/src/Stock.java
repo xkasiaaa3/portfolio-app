@@ -60,5 +60,9 @@ public class Stock {
     public int hashCode() {
         return Objects.hash(stockId, stockName, quantity, pricePerShare);
     }
+
+    public void updateQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
 

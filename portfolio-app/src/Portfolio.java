@@ -49,7 +49,7 @@ public class Portfolio {
             stocks.forEach(s -> {
                 if (s.equals(stock)) {
                     s.updatePricePerShare(stock.getPricePerShare());
-                    if (s.getQuantity() < -stock.getQuantity()) {
+                    if (s.getQuantity() < stock.getQuantity()) {
                         System.out.println("You do not own enough shares.");
                     } else {
                         s.sellStock(stock.getQuantity());

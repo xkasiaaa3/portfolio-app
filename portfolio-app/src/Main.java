@@ -65,7 +65,7 @@ public class Main {
             System.out.println("How many shares would you like to sell?");
             System.out.print("Input: ");
             int quantity = scanner.nextInt();
-            currentStock.sellStock(quantity);
+            currentStock.updateQuantity(quantity);
             portfolio.removeStock(currentStock);
         } else {
             System.out.println("You do not own any shares of this stock.");
