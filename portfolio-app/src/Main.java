@@ -107,7 +107,7 @@ public class Main {
             }
             int cont;
             do {
-                System.out.print("Leave? (0: No, 1: Yes): ");
+                System.out.print("Exit the program? (0: No, 1: Yes): ");
                 cont = scanner.nextInt();
             } while (cont != 0 && cont != 1);
             if (cont == 1) choice = 5;
